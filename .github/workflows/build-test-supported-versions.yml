@@ -3,7 +3,7 @@ name: Build and Test - Supported Python Versions
 
 on:
   push:
-    branches: [ main ]
+    branches: [ actions-branch ]
   pull_request:
     branches: [ main ]
 
