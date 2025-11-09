@@ -225,3 +225,4 @@ If you find any issues with new releases, please discuss in [GitHub Discussions]
 
 Older changes are in [CHANGELOG.md](CHANGELOG.md)
 
+kick build
