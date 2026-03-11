@@ -39,6 +39,14 @@ def test_converting_fit_with_power_to_timeseries():
     assert item.gpsfix == 3
 
 
+def test_converting_fit_with_gear_changes_and_power_data_bugfix():
+    p = file_path_of_test_asset("issue-272.fit", in_dir="fit", allow_missing=True)
+    if p is None:
+        pytest.skip("Private test asset not present")
+
+    fit.load_timeseries(p,units)
+
+
 def test_converting_fit_with_gear_changes_and_respiration():
     p = file_path_of_test_asset("2025-07-24-17-55-12.fit", in_dir="fit", allow_missing=True)
     if p is None:
