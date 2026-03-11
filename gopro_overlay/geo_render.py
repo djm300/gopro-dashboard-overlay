@@ -5,8 +5,8 @@ from typing import List
 
 import PIL
 from PIL.Image import Image
-from geotiler.map import _find_top_left_tile, _tile_coords, _tile_offsets, Tile
-from geotiler.tile.img import _error_image
+from .vendor.geotiler.map import _find_top_left_tile, _tile_coords, _tile_offsets, Tile
+from .vendor.geotiler.tile.img import _error_image
 
 from gopro_overlay.log import log
 

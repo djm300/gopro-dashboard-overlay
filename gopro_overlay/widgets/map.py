@@ -1,7 +1,7 @@
 import math
 from typing import Callable
 
-import geotiler
+import gopro_overlay.vendor.geotiler as geotiler
 from PIL import ImageDraw, Image
 
 from gopro_overlay.dimensions import Dimension

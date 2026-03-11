@@ -26,13 +26,14 @@ classifiers = [
 dependencies = [
     "pillow==11.3.0",
     "pint==0.25.1",      # min python version 3.11
-    "geotiler==0.15",
     "gpxpy==1.6.1",
     "fitdecode==0.10.0",
     "geographiclib==1.52",
     "progressbar2==4.2.0",
     "requests==2.32.5",
     "sqlitedict==2.1.0",
+    "aiohttp==3.13.3",   # for geotiler
+    "cytoolz==1.1.0",    # for geotiler
 ]
 
 [project.urls]
@@ -41,7 +42,7 @@ Source = "https://github.com/time4tea/gopro-dashboard-overlay"
 
 [project.optional-dependencies]
 cairo=["pycairo==1.28.0"]
-test = ["gopro-overlay[cairo]", "pytest"]
+test = ["gopro-overlay[cairo]", "pytest", "pytest-asyncio"]
 dev = ["gopro-overlay[test]", "black", "viztracer", "bump-my-version"]
 
 
