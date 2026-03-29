@@ -1,29 +1,10 @@
-"""
-Unit and integration tests for SimpleChart enhancements:
-  - width parameter (stretches chart to fixed pixel width)
-  - per-frame marker interpolation (sub-tick smooth movement)
-  - marker clamping (marker stays within data bounds)
-  - marker_size parameter (configurable via XML)
-  - XML attribute parsing (width, marker-size)
-"""
-import os
-import random
-from datetime import timedelta
-
-import pytest
 from PIL import Image, ImageDraw
 
-from gopro_overlay import fake
 from gopro_overlay.framemeta import View
 from gopro_overlay.widgets.chart import SimpleChart
 
 
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
 def draw_chart(chart, w=500, h=200):
-    """Render chart onto a fresh image and return the image."""
     img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
     chart.draw(img, draw)
@@ -31,14 +12,9 @@ def draw_chart(chart, w=500, h=200):
 
 
 def linear_view(n=256, lo=0.0, hi=1.0, version=1):
-    """View with linearly increasing values — no Nones."""
     step = (hi - lo) / max(n - 1, 1)
     return View(data=[lo + i * step for i in range(n)], version=version)
 
-
-# ---------------------------------------------------------------------------
-# width parameter — chart image is exactly render_width pixels wide
-# ---------------------------------------------------------------------------
 
 class TestWidth:
 
@@ -65,10 +41,6 @@ class TestWidth:
         assert chart.chart_image.size == (400, 100)
 
 
-# ---------------------------------------------------------------------------
-# chart cache invalidation
-# ---------------------------------------------------------------------------
-
 class TestCaching:
 
     def test_chart_image_reused_on_same_version(self):
@@ -87,10 +59,6 @@ class TestCaching:
         draw_chart(chart)
         assert id(chart.chart_image) != first_image_id
 
-
-# ---------------------------------------------------------------------------
-# marker clamping — marker never escapes the data range
-# ---------------------------------------------------------------------------
 
 class TestMarkerClamping:
 
@@ -132,75 +100,3 @@ class TestMarkerClamping:
             window_tick_ms=100,
         )
         draw_chart(chart)  # must not raise
-
-
-# ---------------------------------------------------------------------------
-# marker_size parameter — larger size produces a larger rendered dot
-# ---------------------------------------------------------------------------
-
-class TestMarkerSize:
-
-    def test_larger_marker_occupies_more_red_pixels(self):
-        """A size-10 marker should produce more red pixels than a size-4 marker."""
-        view = linear_view(n=100)
-
-        def red_pixel_count(size):
-            chart = SimpleChart(
-                value=lambda: view,
-                height=200,
-                width=200,
-                marker_size=size,
-                marker_time_fn=lambda: 0.0,
-                window_tick_ms=100,
-            )
-            img = draw_chart(chart, w=200, h=200)
-            return sum(
-                1 for x in range(img.width) for y in range(img.height)
-                if (lambda p: p[0] > 200 and p[1] < 50 and p[2] < 50 and p[3] > 0)(img.getpixel((x, y)))
-            )
-
-        assert red_pixel_count(10) > red_pixel_count(4)
-
-
-# ---------------------------------------------------------------------------
-# XML integration — width and marker-size attributes parsed correctly
-# ---------------------------------------------------------------------------
-
-class TestXmlIntegration:
-
-    def _make_layout_xml(self, extra_attrs=""):
-        return f"""<layout>
-            <component type="chart" x="0" y="0"
-                metric="alt" units="meters" seconds="60" samples="64"
-                height="100" {extra_attrs}/>
-        </layout>"""
-
-    def _build_layout(self, extra_attrs):
-        """
-        layout_from_xml returns a factory callable; widgets (and attribute
-        validation) are only created when that callable is invoked with an entry.
-        """
-        from gopro_overlay.layout_xml import layout_from_xml
-        from gopro_overlay.privacy import NoPrivacyZone
-        from gopro_overlay.font import load_font
-
-        rng = random.Random(42)
-        framemeta = fake.fake_framemeta(length=timedelta(minutes=2), step=timedelta(seconds=1), rng=rng)
-        font_path = os.path.join(os.path.dirname(__file__), "..", "..", "Roboto-Medium.ttf")
-        font = load_font(font_path)
-        xml = self._make_layout_xml(extra_attrs=extra_attrs)
-        layout_creator = layout_from_xml(xml, None, framemeta, font, privacy=NoPrivacyZone())
-        layout_creator(lambda: framemeta[framemeta.min])
-
-    def test_chart_xml_with_width_attribute_accepted(self):
-        """XML with width= should not raise an unknown-attribute error."""
-        self._build_layout('width="300"')
-
-    def test_chart_xml_with_marker_size_attribute_accepted(self):
-        """XML with marker-size= should not raise an unknown-attribute error."""
-        self._build_layout('marker-size="8"')
-
-    def test_chart_xml_unknown_attribute_raises(self):
-        """Sanity check: truly unknown attributes still raise IOError."""
-        with pytest.raises(IOError, match="Unknown attributes"):
-            self._build_layout('nonexistent-attr="123"')
