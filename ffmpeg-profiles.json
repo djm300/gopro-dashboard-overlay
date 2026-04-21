@@ -1,12 +1,4 @@
 {
-  "overlay": {
-    "input": [],
-    "output": ["-vcodec", "png"]
-  },
-  "overlay-test-10s": {
-    "input": [],
-    "output": ["-t", "10", "-vcodec", "png"]
-  },
   "original": {
     "input": [],
     "filter": "[0:v]null[main];[main][1:v]overlay",
