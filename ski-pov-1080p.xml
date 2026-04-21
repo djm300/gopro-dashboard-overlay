@@ -43,8 +43,8 @@
                 <component type="icon" x="17" y="9" file="gauge.png" size="24"/>
             </frame>
         </translate>
-        <component type="metric" x="114" y="30" metric="speed" units="kph" dp="0" size="56" outline="0,0,0" outline_width="1"/>
-        <component type="text" x="256" y="42" size="24" outline="0,0,0" outline_width="1">km/h</component>
+        <component type="metric" x="170" y="62" metric="speed" units="kph" dp="0" size="56" align="centre" outline="0,0,0" outline_width="1"/>
+        <component type="text" x="322" y="84" size="22" align="right" outline="0,0,0" outline_width="1">km/h</component>
     </composite>
 
     <composite x="778" y="18" name="elevation">
@@ -54,8 +54,8 @@
                 <component type="icon" x="17" y="9" file="mountain.png" size="24"/>
             </frame>
         </translate>
-        <component type="metric" x="100" y="30" metric="alt" units="metre" dp="0" size="54" outline="0,0,0" outline_width="1"/>
-        <component type="text" x="256" y="42" size="24" outline="0,0,0" outline_width="1">m</component>
+        <component type="metric" x="170" y="62" metric="alt" units="metre" dp="0" size="54" align="centre" outline="0,0,0" outline_width="1"/>
+        <component type="text" x="322" y="84" size="22" align="right" outline="0,0,0" outline_width="1">m</component>
     </composite>
 
     <composite x="1155" y="18" name="slope">
@@ -65,8 +65,8 @@
                 <component type="icon" x="17" y="9" file="slope-triangle.png" size="24"/>
             </frame>
         </translate>
-        <component type="metric" x="102" y="30" metric="gradient" dp="0" size="56" outline="0,0,0" outline_width="1"/>
-        <component type="text" x="256" y="42" size="24" outline="0,0,0" outline_width="1">%</component>
+        <component type="metric" x="170" y="62" metric="gradient" dp="0" size="56" align="centre" outline="0,0,0" outline_width="1"/>
+        <component type="text" x="322" y="84" size="22" align="right" outline="0,0,0" outline_width="1">%</component>
     </composite>
 
     <composite x="1532" y="18" name="distance">
@@ -76,8 +76,8 @@
                 <component type="icon" x="17" y="9" file="ruler.png" size="24"/>
             </frame>
         </translate>
-        <component type="metric" x="130" y="30" metric="odo" units="metre" dp="0" size="56" outline="0,0,0" outline_width="1"/>
-        <component type="text" x="256" y="42" size="24" outline="0,0,0" outline_width="1">m</component>
+        <component type="metric" x="170" y="62" metric="odo" units="metre" dp="0" size="56" align="centre" outline="0,0,0" outline_width="1"/>
+        <component type="text" x="322" y="84" size="22" align="right" outline="0,0,0" outline_width="1">m</component>
     </composite>
 
     <composite x="1456" y="634" name="path">
