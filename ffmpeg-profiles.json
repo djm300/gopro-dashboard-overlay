@@ -1,0 +1,25 @@
+{
+  "overlay": {
+    "input": [],
+    "output": ["-vcodec", "png"]
+  },
+  "overlay-test-10s": {
+    "input": [],
+    "output": ["-t", "10", "-vcodec", "png"]
+  },
+  "default": {
+    "input": [],
+    "filter": "[0:v]scale=1920:1080[main];[main][1:v]overlay",
+    "output": ["-vcodec", "libx264", "-pix_fmt", "yuv420p", "-crf", "20", "-preset", "veryfast", "-movflags", "faststart"]
+  },
+  "720p": {
+    "input": [],
+    "filter": "[0:v]scale=1280:720[main];[main][1:v]overlay",
+    "output": ["-vcodec", "libx264", "-pix_fmt", "yuv420p", "-crf", "20", "-preset", "veryfast", "-movflags", "faststart"]
+  },
+  "ski-pov-4k": {
+    "input": [],
+    "filter": "[0:v]scale=3840:2160:force_original_aspect_ratio=increase,crop=3840:2160[main];[main][1:v]overlay",
+    "output": ["-vcodec", "libx264", "-pix_fmt", "yuv420p", "-crf", "18", "-preset", "veryfast", "-movflags", "faststart"]
+  }
+}
