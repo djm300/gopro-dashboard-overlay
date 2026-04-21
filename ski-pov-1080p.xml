@@ -41,14 +41,14 @@
     <!-- Peak speed -->
     <composite x="26" y="634" name="peak_speed">
         <frame width="438" height="206" bg="16,20,28,168" cr="10" opacity="0.3" outline="255,255,255,18" fo="0"/>
-        <component type="icon" x="218" y="0" file="gauge-20.png" size="206"/>
+        <component type="icon" x="116" y="0" file="gauge-20.png" size="206"/>
         <component type="chart" name="speed_peak_chart" width="438" height="206" seconds="180" samples="512" metric="speed" units="kph" fill="0,122,255,96" line="0,122,255,235" text="255,255,255,190" bg="0,0,0,0" marker-size="5"/>
     </composite>
 
     <!-- Altitude graph -->
     <composite x="26" y="856" name="altitude_graph">
         <frame width="438" height="206" bg="16,20,28,168" cr="10" opacity="0.3" outline="255,255,255,18" fo="0"/>
-        <component type="icon" x="218" y="0" file="mountain-20.png" size="206"/>
+        <component type="icon" x="116" y="0" file="mountain-20.png" size="206"/>
         <component type="chart" name="altitude_chart" width="438" height="206" seconds="180" samples="512" metric="alt" units="metre" fill="48,209,88,88" line="48,209,88,235" text="255,255,255,190" bg="0,0,0,0" marker-size="5"/>
     </composite>
 
@@ -56,7 +56,7 @@
     <composite x="1456" y="856" name="path">
         <frame width="438" height="206" bg="16,20,28,164" cr="10" opacity="0.3" outline="255,255,255,18" fo="0"/>
         <translate x="116" y="0">
-            <component type="cairo-circuit-map" size="206" fill="48,209,88,88" line-width="0.05" loc-size="0.03" loc-fill="178,186,198,220" loc-outline="255,255,255,55"/>
+            <component type="cairo-circuit-map" size="206" fill="255,255,255,235" outline="178,186,198,180" line-width="0.05" loc-size="0.02" loc-fill="255,0,0,255" loc-outline="0,0,0,255"/>
         </translate>
     </composite>
 </layout>
