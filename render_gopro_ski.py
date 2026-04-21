@@ -11,13 +11,14 @@ from pathlib import Path
 
 INPUT_OFFSET = "00:00:30.000000"
 DURATION = "00:00:20.000000"
-LAYOUT_XML = "ski-pov-720p.xml"
-FFMPEG_PROFILE = "720p"
-OVERLAY_SIZE = "1280x720"
+LAYOUT_XML = "ski-pov-1080p.xml"
+FFMPEG_PROFILE = "1080p"
+OVERLAY_SIZE = "1920x1080"
 DOWNLOAD_DIR = Path("/mnt/downloads/gopro-ski-26")
 VENV_BIN = Path("/home/joris/venv/bin")
 CACHE_DIR = Path("/tmp/gopro-cache")
 PROFILE_FILE = "ffmpeg-profiles.json"
+FONT_FILE = Path("/usr/share/fonts/truetype/roboto/unhinted/RobotoTTF/Roboto-Medium.ttf")
 
 
 def first_mp4(directory: Path) -> Path:
@@ -60,7 +61,7 @@ def main() -> int:
     with tempfile.TemporaryDirectory(prefix="gopro-ski-") as tmp:
         tmpdir = Path(tmp)
 
-        render_file = tmpdir / f"{source.stem}-ski-pov-4k.mp4"
+        render_file = tmpdir / f"{source.stem}-ski-pov-1080p.mp4"
         timestamp = dt.datetime.now().strftime("%H%M-%d%m%Y")
         final_file = DOWNLOAD_DIR / f"test{timestamp}.mp4"
 
@@ -83,6 +84,8 @@ def main() -> int:
         run(
             [
                 str(VENV_BIN / "gopro-dashboard.py"),
+                "--font",
+                str(FONT_FILE),
                 "--config-dir",
                 str(config_dir),
                 "--cache-dir",
