@@ -1,84 +1,87 @@
 <layout>
     <composite x="24" y="18" name="date_time">
-        <frame width="470" height="154" bg="18,22,30,182" cr="62" opacity="0.64" outline="255,255,255,18" fo="26"/>
-        <translate x="24" y="22">
-            <frame width="136" height="42" bg="0,122,255,230" cr="21">
-                <component type="text" x="24" y="9" size="17" outline="0,0,0" outline_width="1">DATE</component>
+        <frame width="340" height="92" bg="18,22,30,182" cr="46" opacity="0.64" outline="255,255,255,18" fo="20"/>
+        <translate x="18" y="14">
+            <frame width="126" height="42" bg="0,122,255,230" cr="21">
+                <component type="icon" x="10" y="10" file="gauge-1.png" size="18"/>
+                <component type="text" x="34" y="10" size="13" outline="0,0,0" outline_width="1">DATE</component>
             </frame>
         </translate>
-        <component type="datetime" x="24" y="62" format="%Y/%m/%d" size="41" outline="0,0,0" outline_width="1"/>
-        <component type="datetime" x="24" y="102" format="%H:%M:%S" size="35" outline="0,0,0" outline_width="1"/>
+        <component type="datetime" x="104" y="42" format="%Y/%m/%d" size="26" outline="0,0,0" outline_width="1"/>
+        <component type="datetime" x="126" y="66" format="%H:%M:%S" size="22" outline="0,0,0" outline_width="1"/>
     </composite>
 
-    <composite x="24" y="176" name="peak_speed">
-        <frame width="1040" height="336" bg="16,20,28,168" cr="66" opacity="0.66" outline="255,255,255,18" fo="28"/>
-        <translate x="30" y="28">
-            <frame width="250" height="46" bg="0,122,255,230" cr="23">
-                <component type="text" x="24" y="9" size="17" outline="0,0,0" outline_width="1">PEAK SPEED</component>
+    <composite x="24" y="126" name="peak_speed">
+        <frame width="520" height="168" bg="16,20,28,168" cr="58" opacity="0.66" outline="255,255,255,18" fo="20"/>
+        <translate x="18" y="14">
+            <frame width="190" height="42" bg="0,122,255,230" cr="21">
+                <component type="icon" x="10" y="10" file="gauge.png" size="18"/>
+                <component type="text" x="34" y="10" size="13" outline="0,0,0" outline_width="1">PEAK SPEED</component>
             </frame>
         </translate>
-        <translate x="30" y="82">
-            <component type="chart" name="speed_peak_chart" width="978" height="216" seconds="180" samples="512" metric="speed" units="kph" fill="0,122,255,96" line="0,122,255,235" text="255,255,255,190" bg="0,0,0,0" marker-size="13"/>
-        </translate>
-    </composite>
-
-    <composite x="24" y="530" name="altitude_graph">
-        <frame width="1040" height="336" bg="16,20,28,168" cr="66" opacity="0.66" outline="255,255,255,18" fo="28"/>
-        <translate x="30" y="28">
-            <frame width="216" height="46" bg="48,209,88,230" cr="23">
-                <component type="text" x="22" y="9" size="17" outline="0,0,0" outline_width="1">ALTITUDE</component>
-            </frame>
-        </translate>
-        <translate x="30" y="82">
-            <component type="chart" name="altitude_chart" width="978" height="216" seconds="180" samples="512" metric="alt" units="metre" fill="48,209,88,88" line="48,209,88,235" text="255,255,255,190" bg="0,0,0,0" marker-size="13"/>
+        <translate x="18" y="52">
+            <component type="chart" name="speed_peak_chart" width="484" height="98" seconds="180" samples="512" metric="speed" units="kph" fill="0,122,255,96" line="0,122,255,235" text="255,255,255,190" bg="0,0,0,0" marker-size="10"/>
         </translate>
     </composite>
 
-    <composite x="1456" y="16" name="speed">
-        <frame width="438" height="102" bg="18,22,30,176" cr="52" opacity="0.68" outline="255,255,255,16" fo="18"/>
-        <translate x="22" y="14">
-            <frame width="146" height="40" bg="0,122,255,230" cr="20">
-                <component type="text" x="24" y="8" size="15" outline="0,0,0" outline_width="1">KPH</component>
+    <composite x="24" y="434" name="altitude_graph">
+        <frame width="520" height="168" bg="16,20,28,168" cr="58" opacity="0.66" outline="255,255,255,18" fo="20"/>
+        <translate x="18" y="14">
+            <frame width="168" height="42" bg="48,209,88,230" cr="21">
+                <component type="icon" x="10" y="10" file="mountain.png" size="18"/>
+                <component type="text" x="34" y="10" size="13" outline="0,0,0" outline_width="1">ALTITUDE</component>
             </frame>
         </translate>
-        <component type="icon" x="370" y="18" file="gauge.png" size="52"/>
-        <component type="metric" x="22" y="40" metric="speed" units="kph" dp="0" size="54" outline="0,0,0" outline_width="1"/>
+        <translate x="18" y="52">
+            <component type="chart" name="altitude_chart" width="484" height="98" seconds="180" samples="512" metric="alt" units="metre" fill="48,209,88,88" line="48,209,88,235" text="255,255,255,190" bg="0,0,0,0" marker-size="10"/>
+        </translate>
     </composite>
 
-    <composite x="1456" y="126" name="elevation">
-        <frame width="438" height="92" bg="18,22,30,160" cr="48" opacity="0.62" outline="255,255,255,16" fo="16"/>
-        <translate x="22" y="14">
-            <frame width="124" height="40" bg="255,159,10,230" cr="20">
-                <component type="text" x="22" y="8" size="15" outline="0,0,0" outline_width="1">ELE</component>
+    <composite x="401" y="18" name="speed">
+        <frame width="340" height="92" bg="18,22,30,176" cr="46" opacity="0.68" outline="255,255,255,16" fo="16"/>
+        <translate x="16" y="14">
+            <frame width="110" height="42" bg="0,122,255,230" cr="21">
+                <component type="icon" x="10" y="10" file="gauge.png" size="18"/>
+                <component type="text" x="34" y="10" size="13" outline="0,0,0" outline_width="1">KPH</component>
             </frame>
         </translate>
-        <component type="icon" x="374" y="16" file="mountain.png" size="52"/>
-        <component type="metric" x="22" y="38" metric="alt" units="metre" dp="0" size="48" outline="0,0,0" outline_width="1"/>
+        <component type="metric" x="128" y="38" metric="speed" units="kph" dp="0" size="46" outline="0,0,0" outline_width="1"/>
     </composite>
 
-    <composite x="1456" y="236" name="slope">
-        <frame width="438" height="92" bg="18,22,30,160" cr="48" opacity="0.62" outline="255,255,255,16" fo="16"/>
-        <translate x="22" y="14">
-            <frame width="146" height="40" bg="48,209,88,230" cr="20">
-                <component type="text" x="20" y="8" size="15" outline="0,0,0" outline_width="1">SLOPE</component>
+    <composite x="778" y="18" name="elevation">
+        <frame width="340" height="92" bg="18,22,30,160" cr="46" opacity="0.62" outline="255,255,255,16" fo="16"/>
+        <translate x="16" y="14">
+            <frame width="114" height="42" bg="255,159,10,230" cr="21">
+                <component type="icon" x="10" y="10" file="mountain.png" size="18"/>
+                <component type="text" x="34" y="10" size="13" outline="0,0,0" outline_width="1">ELE</component>
             </frame>
         </translate>
-        <component type="icon" x="374" y="16" file="slope-triangle.png" size="52"/>
-        <component type="metric" x="22" y="38" metric="gradient" dp="0" size="48" outline="0,0,0" outline_width="1"/>
+        <component type="metric" x="130" y="38" metric="alt" units="metre" dp="0" size="46" outline="0,0,0" outline_width="1"/>
     </composite>
 
-    <composite x="1456" y="456" name="distance">
-        <frame width="438" height="92" bg="18,22,30,160" cr="48" opacity="0.62" outline="255,255,255,16" fo="16"/>
-        <translate x="22" y="14">
-            <frame width="172" height="40" bg="138,149,165,230" cr="20">
-                <component type="text" x="22" y="8" size="15" outline="0,0,0" outline_width="1">DISTANCE</component>
+    <composite x="1155" y="18" name="slope">
+        <frame width="340" height="92" bg="18,22,30,160" cr="46" opacity="0.62" outline="255,255,255,16" fo="16"/>
+        <translate x="16" y="14">
+            <frame width="120" height="42" bg="48,209,88,230" cr="21">
+                <component type="icon" x="10" y="10" file="slope-triangle.png" size="18"/>
+                <component type="text" x="34" y="10" size="13" outline="0,0,0" outline_width="1">SLOPE</component>
             </frame>
         </translate>
-        <component type="icon" x="374" y="16" file="ruler.png" size="52"/>
-        <component type="metric" x="22" y="38" metric="odo" units="metre" dp="0" size="48" outline="0,0,0" outline_width="1"/>
+        <component type="metric" x="132" y="38" metric="gradient" dp="0" size="46" outline="0,0,0" outline_width="1"/>
     </composite>
 
-    <composite x="1456" y="566" name="path">
+    <composite x="1532" y="18" name="distance">
+        <frame width="340" height="92" bg="18,22,30,160" cr="46" opacity="0.62" outline="255,255,255,16" fo="16"/>
+        <translate x="16" y="14">
+            <frame width="162" height="42" bg="138,149,165,230" cr="21">
+                <component type="icon" x="10" y="10" file="ruler.png" size="18"/>
+                <component type="text" x="34" y="10" size="13" outline="0,0,0" outline_width="1">DISTANCE</component>
+            </frame>
+        </translate>
+        <component type="metric" x="144" y="38" metric="odo" units="metre" dp="0" size="46" outline="0,0,0" outline_width="1"/>
+    </composite>
+
+    <composite x="1456" y="634" name="path">
         <frame width="438" height="428" bg="16,20,28,164" cr="52" opacity="0.60" outline="255,255,255,16" fo="20"/>
         <translate x="22" y="18">
             <frame width="142" height="40" bg="88,86,214,230" cr="20">
@@ -86,7 +89,7 @@
             </frame>
         </translate>
         <translate x="22" y="60">
-            <component type="cairo-circuit-map" size="394" line-width="0.035" loc-size="0.08" loc-fill="255,255,255,235" loc-outline="0,0,0,0"/>
+            <component type="cairo-circuit-map" size="394" line-width="0.035" loc-size="0.05" loc-fill="178,186,198,220" loc-outline="255,255,255,55"/>
         </translate>
     </composite>
 </layout>
