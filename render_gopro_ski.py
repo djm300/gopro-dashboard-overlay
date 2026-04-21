@@ -18,7 +18,7 @@ DOWNLOAD_DIR = Path("/mnt/downloads/gopro-ski-26")
 VENV_BIN = Path("/home/joris/venv/bin")
 CACHE_DIR = Path("/tmp/gopro-cache")
 PROFILE_FILE = "ffmpeg-profiles.json"
-FONT_FILE = Path("/usr/share/fonts/truetype/roboto/unhinted/RobotoTTF/Roboto-Medium.ttf")
+FONT_FILE = Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
 
 
 def first_mp4(directory: Path) -> Path:
