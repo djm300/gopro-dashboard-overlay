@@ -9,8 +9,9 @@
     <composite x="3070" y="220" name="elevation">
         <frame width="700" height="150" bg="0,0,0,48" cr="28" opacity="0.40"/>
         <component type="text" x="30" y="18" size="28" outline="0,0,0" outline_width="4">ELE</component>
-        <component type="icon" x="566" y="8" file="mountain.png" size="120"/>
-        <component type="metric" x="30" y="56" metric="alt" units="metre" dp="0" size="76" outline="0,0,0" outline_width="5"/>
+        <component type="icon" x="566" y="15" file="mountain.png" size="120"/>
+        <component type="metric" x="30" y="56" metric="alt" dp="0" size="76" outline="0,0,0" outline_width="5"/>
+        <component type="text" x="664" y="145" size="22" align="lb" outline="0,0,0" outline_width="1">m</component>
     </composite>
 
     <composite x="3070" y="404" name="slope">
