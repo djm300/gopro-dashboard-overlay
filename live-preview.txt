@@ -1,0 +1,1 @@
+gopro-layout.py --cache-dir /tmp/gopro-cache --config-dir /data/scripts/gopro --gopro /data/scripts/gopro/cut.mp4 /data/scripts/gopro/ski-pov-1080p.xml

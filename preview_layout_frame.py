@@ -6,7 +6,7 @@ import datetime as dt
 import shutil
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from gopro_overlay import timeseries_process
 from gopro_overlay.arguments import default_config_location
@@ -14,12 +14,10 @@ from gopro_overlay.dimensions import dimension_from, Dimension
 from gopro_overlay.ffmpeg import FFMPEG
 from gopro_overlay.ffmpeg_gopro import FFMPEGGoPro
 from gopro_overlay.font import load_font
-from gopro_overlay.framemeta_gpmd import LoadFlag
 from gopro_overlay.geo import MapRenderer, MapStyler, api_key_finder
 from gopro_overlay.layout import Overlay
 from gopro_overlay.layout_xml import Converters, layout_from_xml, load_xml_layout
 from gopro_overlay.loading import GoproLoader
-from gopro_overlay.point import Point
 from gopro_overlay.privacy import NoPrivacyZone
 from gopro_overlay.timeunits import timeunits
 from gopro_overlay.units import units
@@ -60,6 +58,19 @@ def load_frame(ffmpeg_gopro: FFMPEGGoPro, filepath: Path, size: Dimension, at_se
     return frame
 
 
+def draw_raster(image: Image.Image, step: int = 10) -> Image.Image:
+    draw = ImageDraw.Draw(image, "RGBA")
+    width, height = image.size
+    color = (255, 255, 255, 72)
+
+    for x in range(0, width, step):
+        draw.line(((x, 0), (x, height - 1)), fill=color, width=1)
+    for y in range(0, height, step):
+        draw.line(((0, y), (width - 1, y)), fill=color, width=1)
+
+    return image
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Render a single dashboard preview frame to JPEG.")
     parser.add_argument("--input", type=Path, help="Input GoPro MP4. Defaults to cut.mp4 or first MP4 in cwd.")
@@ -68,9 +79,12 @@ def main() -> int:
     parser.add_argument("--overlay-size", default=DEFAULT_SIZE, help="Overlay frame size, e.g. 1920x1080.")
     parser.add_argument("--at-seconds", type=float, default=10.0, help="Timestamp in seconds for the preview frame.")
     parser.add_argument("--map-style", default="osm", help="Map style.")
+    parser.add_argument("--map-api-key", default=None, help="API key for map provider styles that require one.")
     parser.add_argument("--config-dir", type=Path, default=default_config_location, help="Config directory.")
     parser.add_argument("--cache-dir", type=Path, default=DEFAULT_CACHE, help="Cache directory.")
     parser.add_argument("--font", type=Path, default=DEFAULT_FONT, help="Font file.")
+    parser.add_argument("--grid", action="store_true", help="Draw a grid overlay on the preview image.")
+    parser.add_argument("--grid-step", type=int, default=10, help="Grid spacing in pixels.")
     args = parser.parse_args()
 
     root = Path.cwd()
@@ -91,7 +105,7 @@ def main() -> int:
     loader = GoproLoader(
         ffmpeg_gopro=ffmpeg_gopro,
         units=units,
-        flags={LoadFlag.ACCL, LoadFlag.CORI, LoadFlag.GRAV},
+        flags=set(),
     )
     gopro = loader.load(source)
     timeseries = gopro.framemeta
@@ -99,7 +113,6 @@ def main() -> int:
     # Match the fields expected by the XML widgets.
     timeseries.process_deltas(timeseries_process.calculate_speeds(), skip=18 * 3)
     timeseries.process(timeseries_process.calculate_odo())
-    timeseries.process_accel(timeseries_process.calculate_accel(), skip=18 * 3)
     timeseries.process_deltas(timeseries_process.calculate_gradient(), skip=18 * 3)
     timeseries.process(timeseries_process.process_ses("point", lambda i: i.point, alpha=0.45))
 
@@ -111,7 +124,7 @@ def main() -> int:
         source_frame = source_frame.resize(overlay_size.tuple(), resample=Image.Resampling.LANCZOS)
 
     config_loader = Config(args.config_dir)
-    api_finder = api_key_finder(config_loader, argparse.Namespace(map_api_key=None))
+    api_finder = api_key_finder(config_loader, args)
     font = load_font(str(args.font)).font_variant(size=16)
 
     with MapRenderer(
@@ -135,7 +148,10 @@ def main() -> int:
         supplier = SimpleFrameSupplier(overlay_size)
         overlay_frame = overlay.draw(timeunits(seconds=frame_time), supplier.drawing_frame())
 
-    composited = Image.alpha_composite(source_frame, overlay_frame).convert("RGB")
+    composited = Image.alpha_composite(source_frame, overlay_frame)
+    if args.grid:
+        composited = draw_raster(composited, step=max(1, args.grid_step))
+    composited = composited.convert("RGB")
     composited.save(output, format="JPEG", quality=95, optimize=True, progressive=True)
 
     stamp = dt.datetime.now().strftime("%H%M-%d%m%Y")
