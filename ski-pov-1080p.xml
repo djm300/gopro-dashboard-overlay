@@ -54,9 +54,9 @@
 
     <!-- Path -->
     <composite x="1456" y="856" name="path">
-        <frame width="438" height="206" bg="16,20,28,164" cr="10" opacity="0.3" outline="255,255,255,18" fo="0"/>
+        <frame width="438" height="206" bg="16,20,28,168" cr="10" opacity="0.3" outline="255,255,255,18" fo="0"/>
         <translate x="116" y="0">
-            <component type="cairo-circuit-map" size="206" fill="255,255,255,235" outline="178,186,198,180" line-width="0.05" loc-size="0.02" loc-fill="255,0,0,255" loc-outline="0,0,0,255"/>
+            <component type="cairo-circuit-map" size="206" fill="255,255,255,235" outline="178,186,198,180" line-width="0.05" loc-size="0.03" loc-fill="255,0,0,255" loc-outline="178,186,198,180"/>
         </translate>
     </composite>
 </layout>
