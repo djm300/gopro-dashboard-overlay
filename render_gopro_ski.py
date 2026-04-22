@@ -4,21 +4,13 @@ from __future__ import annotations
 import datetime as dt
 import shutil
 import subprocess
-import sys
 import tempfile
 from pathlib import Path
 
-
 INPUT_OFFSET = "00:00:30.000000"
 DURATION = "00:00:20.000000"
-LAYOUT_XML = "ski-pov-1080p.xml"
-FFMPEG_PROFILE = "1080p"
-OVERLAY_SIZE = "1920x1080"
 DOWNLOAD_DIR = Path("/mnt/downloads/gopro-ski-26")
 VENV_BIN = Path("/home/joris/venv/bin")
-CACHE_DIR = Path("/tmp/gopro-cache")
-PROFILE_FILE = "ffmpeg-profiles.json"
-FONT_FILE = Path("/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf")
 
 
 def first_mp4(directory: Path) -> Path:
@@ -45,18 +37,18 @@ def main() -> int:
     root = Path.cwd()
     source = first_mp4(root)
     cut_file = root / "cut.mp4"
+    layout_xml = root / "ski-pov-1080p.xml"
+    profile_file = root / "ffmpeg-profiles.json"
+    font_file = Path("/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf")
+    cache_dir = Path("/tmp/gopro-cache")
 
-    layout_xml = root / LAYOUT_XML
-    config_dir = root
     if not layout_xml.exists():
         raise FileNotFoundError(layout_xml)
-    if not config_dir.exists():
-        raise FileNotFoundError(config_dir)
-    if not (root / PROFILE_FILE).exists():
-        raise FileNotFoundError(root / PROFILE_FILE)
+    if not profile_file.exists():
+        raise FileNotFoundError(profile_file)
 
     DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_dir.mkdir(parents=True, exist_ok=True)
 
     with tempfile.TemporaryDirectory(prefix="gopro-ski-") as tmp:
         tmpdir = Path(tmp)
@@ -85,19 +77,19 @@ def main() -> int:
             [
                 str(VENV_BIN / "gopro-dashboard.py"),
                 "--font",
-                str(FONT_FILE),
+                str(font_file),
                 "--config-dir",
-                str(config_dir),
+                str(root),
                 "--cache-dir",
-                str(CACHE_DIR),
+                str(cache_dir),
                 "--layout",
                 "xml",
                 "--layout-xml",
                 str(layout_xml),
                 "--profile",
-                FFMPEG_PROFILE,
+                "1080p",
                 "--overlay-size",
-                OVERLAY_SIZE,
+                "1920x1080",
                 str(cut_file),
                 str(render_file),
             ],

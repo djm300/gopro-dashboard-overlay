@@ -156,12 +156,17 @@ def main() -> int:
 
     stamp = dt.datetime.now().strftime("%H%M-%d%m%Y")
     copied = DOWNLOAD_DIR / f"test{stamp}.jpg"
-    shutil.copy2(output, copied)
+    try:
+        shutil.copy2(output, copied)
+    except OSError as exc:
+        print(f"warning: could not copy preview to {copied}: {exc}")
+    else:
+        print(f"copied: {copied}")
 
     print(f"source: {source}")
     print(f"layout: {layout_xml}")
     print(f"output: {output}")
-    print(f"copied: {copied}")
+
     return 0
 
 

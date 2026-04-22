@@ -7,6 +7,6 @@
   "1080p": {
     "input": [],
     "filter": "[0:v]scale=1920:1080[main];[main][1:v]overlay",
-    "output": ["-vcodec", "libx264", "-pix_fmt", "yuv444p", "-crf", "20", "-preset", "veryfast", "-movflags", "faststart"]
+    "output": ["-vcodec", "libx264", "-movflags", "faststart"]
   }
 }
